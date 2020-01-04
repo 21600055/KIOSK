@@ -1,9 +1,5 @@
  package KIOSK;
-
-import java.awt.*;
-
 public class Main {
-	
 
 	public static void main(String arg[]) {
 		
@@ -14,10 +10,10 @@ public class Main {
 		
 		//new Dialogue();
 		//new panel("패널 테스트");
-		//new Button1("버튼 만들기");
+ 		//new Button1("버튼 만들기");
 		//new Textarea("텍스트 에어리아");
 		//new Test1("테스트 버전");
 		new Test2("테스트 버전2");
 	}
-
+ 
 }

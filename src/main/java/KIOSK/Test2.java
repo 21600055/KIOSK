@@ -1,23 +1,27 @@
 package KIOSK; 
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
-public class Test2 extends JFrame{
+public class Test2 extends JFrame implements ActionListener{
+	
+	JPanel p=new JPanel();
+	JButton bt1=new JButton("주문");
+	JButton bt2=new JButton("완성");
 	
 	public Test2(String arg) {
 		
-		super("버튼 겸 테이블");
-		JPanel p=new JPanel();
-		JButton bt1=new JButton("주문");
-		JButton bt2=new JButton("완성");
-		
+		super("메인화면");	
 		p.setLayout(null);
 		bt1.setBounds(250,50,150,150);
 		bt1.setFont(new Font("맑은 고딕",Font.BOLD,30));
 		bt2.setBounds(550,50,150,150);
 		bt2.setFont(new Font("맑은 고딕",Font.BOLD,30));
 		
+		bt1.addActionListener(this);
+		bt2.addActionListener(this);
 		p.add(bt1);
 		p.add(bt2);
 		add(p);
@@ -26,4 +30,21 @@ public class Test2 extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		//dispose();
+		String event=e.getActionCommand();
+		
+		switch(event) {
+		
+		case "주문":new Order();
+		break;
+		
+		case "완성":;
+		break;
+		} 
+	}
+	
+	
 }

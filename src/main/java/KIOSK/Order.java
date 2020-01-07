@@ -28,7 +28,7 @@ public class Order extends JFrame implements ActionListener{
 		add("South",southp);
 		add("Center",p);
 		event();
-		setSize(1000,750);
+		setSize(1000,750); 
 		setVisible(true);
 	}
 	private void Jpanel() {

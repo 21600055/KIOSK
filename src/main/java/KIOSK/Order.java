@@ -3,11 +3,10 @@ package KIOSK;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class Order extends JFrame implements MouseListener,ActionListener{
+public class Order extends JFrame implements ActionListener{
 	
 	JPanel p=new JPanel();
 	JPanel southp=new JPanel();
@@ -21,8 +20,7 @@ public class Order extends JFrame implements MouseListener,ActionListener{
 	JScrollPane scroll;
 	DefaultTableModel dtm;
 	
-	public Order() {
-		
+	public Order() {	
 		super("주문창");
 		Jpanel();
 		Jtable();
@@ -56,9 +54,9 @@ public class Order extends JFrame implements MouseListener,ActionListener{
 		p.add(bt6);
 	}
 	private void Jtable() {
-		Object[][] rowData= {null};
+		//Object[][] rowData= {null};
 		Object[] columbName= {"주문 목록","단가","수량","가격"};
-		dtm= new DefaultTableModel(rowData,columbName);
+		dtm= new DefaultTableModel(columbName,0);
 		table= new JTable(dtm);
 		scroll= new JScrollPane(table);
 		southp.add(scroll);
@@ -72,26 +70,57 @@ public class Order extends JFrame implements MouseListener,ActionListener{
 	}
 	private void event() {
 		bt1.addActionListener(this);
+		bt2.addActionListener(this);
+		bt3.addActionListener(this);
+		bt4.addActionListener(this);
 	}
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 		String event = e.getActionCommand();
 		switch(event) {
-		
-		case "오코노미야끼S": addRow(event,3500,1);
+		case "오코노미야끼S": 
+			if(isexist(event))
+				Update(event);
+			else
+				addRow(event,3500,1);
 		break;
-		
+		case "오코노미야끼L": 
+			if(isexist(event))
+				Update(event);
+			else
+				addRow(event,4000,1);
+		break;
+		case "타코야끼": 
+			if(isexist(event))
+				Update(event);
+			else
+				addRow(event,3000,1);
+		break;
+		case "매운맛": addRow(event,0,0);
 		}
 	}
-	
 	private void addRow(String name,int unit,int count) {
-		
 		int price=unit*count;
-		
 		DefaultTableModel model=(DefaultTableModel)table.getModel();
 		model.addRow(new String[] {name,Integer.toString(unit),Integer.toString(count),Integer.toString(price)});
 	}
 	
+	private boolean isexist(String event) {
+		for(int i=0;i<table.getRowCount();i++)
+			if(event.equals(table.getValueAt(i, 0)))
+				return true;
+		return false;
+	}
+	
+	private void Update(String event) {
+		int i;
+		for(i=0;i<table.getRowCount();i++)
+			if(event.equals(table.getValueAt(i, 0)))
+				break;
+		int unit=Integer.parseInt((String) table.getValueAt(i, 2))+1;
+		int price=Integer.parseInt((String) table.getValueAt(i, 2))*Integer.parseInt((String) table.getValueAt(i, 1));
+		table.setValueAt(Integer.toString(unit), i, 2);
+		table.setValueAt(Integer.toString(price),i,3); 
+	}
 }

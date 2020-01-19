@@ -28,7 +28,6 @@ public class Test2 extends JFrame implements ActionListener{
 		setSize(1000,750);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public class Excelmember {
-	//이 클래스는 엑셀에 쓸 column들 constructor와 getter, setter입니다..
+	//이 클래스는 엑셀에 쓸 column들 constructor와 getter, setter입니다.
 	private int Number;
 	private String date;
 	private int Ordernum;

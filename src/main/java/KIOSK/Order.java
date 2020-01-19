@@ -146,13 +146,13 @@ public class Order extends JFrame implements ActionListener{
 		textfield.setText(Integer.toString(totalprice));
 	}
 	public void Next() {//다음을 눌렀을때 작동하는 메소드
-		ArrayList<Excelmember> next= new ArrayList<Excelmember>();
+		ArrayList<Excelmember> next= new ArrayList<Excelmember>();//엑셀에 작성할 어레이리스트 만들기
 		next.add(new Excelmember(i,j,table,textfield));//i는 전체넘버,j는 주문넘버입니다.
 		i++;j++;
 		if(j>30)
 			j/=30;
-		dtm.setRowCount(0);
+		dtm.setRowCount(0);//다음 주문을 위한 테이블 초기와
 		textfield.setText("0");
-		new Payment();
+		new Payment(next);
 	}
 }

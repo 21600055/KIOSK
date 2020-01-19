@@ -18,7 +18,7 @@ public class Payment extends JFrame{
 		super("결제정보창");
 		paypanel();
 		//genderpanel();
-		//agepanel();
+		agepanel();
 		setSize(1000,750);
 		setVisible(true);
 	}

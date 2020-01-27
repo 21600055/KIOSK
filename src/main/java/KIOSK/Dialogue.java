@@ -19,7 +19,7 @@ public class Dialogue extends JDialog implements ActionListener{
 	JFrame frame=new JFrame();
 	public Dialogue(JFrame j,ArrayList<Excelmember> i) {
 		
-		super(j, "번호창");
+		super(j, "주문번호창");
 		frame=j;
 		JLabel label=new JLabel("주문번호는 "+Integer.toString(i.get(0).getOrdernum()));
 		label.setFont(new Font("맑은 고딕",Font.BOLD,30));

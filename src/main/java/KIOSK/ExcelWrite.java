@@ -6,6 +6,5 @@ public class ExcelWrite {
 	
 	public ExcelWrite(ArrayList<Excelmember> row) {
 		
-		
 	}
 }

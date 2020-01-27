@@ -10,6 +10,7 @@ public class Test2 extends JFrame implements ActionListener{
 	JPanel p=new JPanel();
 	JButton bt1=new JButton("林巩");
 	JButton bt2=new JButton("肯己");
+	JTable table=new JTable();
 	
 	public Test2(String arg) {
 		
@@ -32,14 +33,13 @@ public class Test2 extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//dispose();
 		String event=e.getActionCommand();
 		
 		switch(event) {
 		
 		case "林巩":new Order();
+					//table=new Order().getTable();
 		break;
-		
 		case "肯己":;
 		break;
 		} 

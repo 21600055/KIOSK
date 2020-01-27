@@ -21,7 +21,7 @@ public class Excelmember {
 	private boolean recive;
 	private String gender;
 	private String age;
-	private int customercount;
+	private String customercount;
 	
 	public Excelmember() {
 		
@@ -146,11 +146,11 @@ public class Excelmember {
 		this.age = age;
 	}
 
-	public int getCustomercount() {
+	public String getCustomercount() {
 		return customercount;
 	}
 
-	public void setCustomercount(int customercount) {
+	public void setCustomercount(String customercount) {
 		this.customercount = customercount;
 	}
 	

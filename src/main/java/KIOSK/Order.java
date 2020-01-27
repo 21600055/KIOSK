@@ -23,6 +23,7 @@ public class Order extends JFrame implements ActionListener{
 	JScrollPane scroll;
 	DefaultTableModel dtm;
 	JTextField textfield=new JTextField(15);
+	Font font=new Font("¸¼Àº °íµñ",Font.BOLD,15);
 	
 	public Order() {	
 		super("ÁÖ¹®Ã¢");
@@ -35,20 +36,23 @@ public class Order extends JFrame implements ActionListener{
 		setSize(1000,750);
 		setVisible(true);
 	}
+	/*public JTable getTable() {
+		return table;
+	}*/
 	private void Jpanel() {//¹öÆ° ¸¸µå´Â ¸Þ¼Òµå
 		p.setLayout(null);
 		bt1.setBounds(100,50,150,100);
-		bt1.setFont(new Font("¸¼Àº °íµñ",Font.BOLD,15));
+		bt1.setFont(font);
 		bt2.setBounds(300,50,150,100);
-		bt2.setFont(new Font("¸¼Àº °íµñ",Font.BOLD,15));
+		bt2.setFont(font);
 		bt3.setBounds(500,50,150,100);
-		bt3.setFont(new Font("¸¼Àº °íµñ",Font.BOLD,15));
+		bt3.setFont(font);
 		bt4.setBounds(700,50,150,100);
-		bt4.setFont(new Font("¸¼Àº °íµñ",Font.BOLD,15));
+		bt4.setFont(font);
 		bt5.setBounds(100,175,150,100);
-		bt5.setFont(new Font("¸¼Àº °íµñ",Font.BOLD,15));
+		bt5.setFont(font);
 		bt6.setBounds(300,175,150,100);
-		bt6.setFont(new Font("¸¼Àº °íµñ",Font.BOLD,15));
+		bt6.setFont(font);
 		
 		p.add(bt1);
 		p.add(bt2);
@@ -115,7 +119,6 @@ public class Order extends JFrame implements ActionListener{
 			break;
 		case "´ÙÀ½":
 			Next();
-			//dispose();
 			break;
 		}
 	}

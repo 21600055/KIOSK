@@ -17,8 +17,8 @@ public class Excelmember {
 	private int food3=0;
 	private String totalprice;
 	private String pay;
-	private boolean paytrue;
-	private boolean recive;
+	private boolean paytrue=false;
+	private boolean recive=false;
 	private String gender;
 	private String age;
 	private String customercount;

@@ -3,6 +3,8 @@ package KIOSK;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 public class Test2 extends JFrame implements ActionListener{
@@ -11,6 +13,7 @@ public class Test2 extends JFrame implements ActionListener{
 	JButton bt1=new JButton("ÁÖ¹®");
 	JButton bt2=new JButton("¿Ï¼º");
 	JTable table=new JTable();
+	ArrayList<Excelmember> list=new ArrayList<Excelmember>();
 	
 	public Test2(String arg) {
 		
@@ -41,6 +44,8 @@ public class Test2 extends JFrame implements ActionListener{
 					//table=new Order().getTable();
 		break;
 		case "¿Ï¼º":;
+		break;
+		case "¿¢¼¿Ãâ·Â":;
 		break;
 		} 
 	}

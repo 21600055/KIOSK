@@ -24,6 +24,7 @@ public class Order extends JFrame implements ActionListener{
 	DefaultTableModel dtm;
 	JTextField textfield=new JTextField(15);
 	Font font=new Font("맑은 고딕",Font.BOLD,15);
+	Excelmember excelmember;
 	
 	public Order() {	
 		super("주문창");
@@ -150,7 +151,8 @@ public class Order extends JFrame implements ActionListener{
 	}
 	public void Next() {//다음을 눌렀을때 작동하는 메소드
 		ArrayList<Excelmember> next= new ArrayList<Excelmember>();//엑셀에 작성할 어레이리스트 만들기
-		next.add(new Excelmember(i,j,table,textfield));//i는 전체넘버,j는 주문넘버입니다.
+		excelmember=new Excelmember(i,j,table,textfield);
+		next.add(excelmember);//i는 전체넘버,j는 주문넘버입니다.
 		i++;j++;
 		if(j>30)
 			j/=30;

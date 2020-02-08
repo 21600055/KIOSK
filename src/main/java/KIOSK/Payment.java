@@ -29,6 +29,10 @@ public class Payment extends JFrame implements ActionListener{
 		
 		super("결제정보창");
 		data=row.get(0);
+		data.setPay(name[0]);
+		data.setGender(gender[0]);
+		data.setAge(age[0]);
+		data.setCustomercount(count[0]);
 		paypanel();
 		genderpanel();
 		agepanel();
@@ -38,7 +42,6 @@ public class Payment extends JFrame implements ActionListener{
 		setVisible(true);
 	}
 	public void paypanel() {
-		//p.getSelectedItem();
 		Box pay=Box.createVerticalBox();
 		p=new JComboBox<String>(name);
 		p.setPreferredSize(new Dimension(250,100));

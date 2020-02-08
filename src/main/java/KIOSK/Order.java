@@ -37,9 +37,6 @@ public class Order extends JFrame implements ActionListener{
 		setSize(1000,750);
 		setVisible(true);
 	}
-	/*public JTable getTable() {
-		return table;
-	}*/
 	private void Jpanel() {//버튼 만드는 메소드
 		p.setLayout(null);
 		bt1.setBounds(100,50,150,100);
@@ -154,8 +151,7 @@ public class Order extends JFrame implements ActionListener{
 		excelmember=new Excelmember(i,j,table,textfield);
 		next.add(excelmember);//i는 전체넘버,j는 주문넘버입니다.
 		i++;j++;
-		if(j>30)
-			j/=30;
+		if(j>30) j/=30;
 		dtm.setRowCount(0);//다음 주문을 위한 테이블 초기와
 		textfield.setText("0");
 		new Payment(next);

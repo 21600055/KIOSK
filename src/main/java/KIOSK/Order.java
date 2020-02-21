@@ -37,7 +37,7 @@ public class Order extends JFrame implements ActionListener{
 		setSize(1000,750);
 		setVisible(true);
 	}
-	private void Jpanel() {//버튼 만드는 메소드
+	public void Jpanel() {//버튼 만드는 메소드
 		p.setLayout(null);
 		bt1.setBounds(100,50,150,100);
 		bt1.setFont(font);

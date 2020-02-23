@@ -1,7 +1,13 @@
 package KIOSK;
 
+import java.awt.Button;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
@@ -13,6 +19,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -25,38 +33,45 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+
 public class Complete extends JFrame implements ActionListener{
 	
 	String today=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 	String way="C:\\Users\\user\\Desktop\\"+today+"HAC장사 장부.xlsx";
 	ArrayList<Excelmember> list=new ArrayList<Excelmember>();
-	JPanel p=new JPanel(),p1=new JPanel();
+	JFrame f=new JFrame();
+	JPanel p=new JPanel(),p1=new JPanel(),p2=new JPanel(),p3;
 	JTable table;
-	JScrollPane scroll;
 	DefaultTableModel dtm;
 	JButton bt=new JButton("결제 완료");
 	JButton bt1=new JButton("수령 완료");
 	JButton bt2=new JButton("새로 고침");
+	Button btn[]=new Button[6];
+	int i=0;
 	
 	public Complete() {
 		
 		super("완성화면");
-		JFrame f=new JFrame();
 		f.setTitle("손님용 출력화면");
 		
 		Jtable();
 		Jbutton();
+		SecondPanel();
 		add("South",p);
 		add("Center",p1);
+		f.add(p2);
+		f.add(p3);
 		event();
 		setSize(1000,750);
 		setVisible(true);
-		f.setSize(750, 1000);
+		f.setSize(1000,750);
 		f.setVisible(true);
 	}
 	
 	public void Jtable() {
 		Object[] columbName= {"No.","Timecode","주문번호","오코S","오코L","타코","매운맛","총가격","결제수단","결제완료","수령","성별","어른/학생","고객수"};
+		
+		JScrollPane scroll;
 		dtm= new DefaultTableModel(columbName,0);
 		table= new JTable(dtm);
 		scroll= new JScrollPane(table);
@@ -65,6 +80,7 @@ public class Complete extends JFrame implements ActionListener{
 	}
 	
 	public void Jbutton() {
+
 		Font font=new Font("맑은 고딕",Font.BOLD,15);
 		p1.setLayout(null);
 		bt.setBounds(100, 50, 150, 100);
@@ -77,6 +93,28 @@ public class Complete extends JFrame implements ActionListener{
 		p1.add(bt);
 		p1.add(bt1);
 		p1.add(bt2);
+	}
+	
+	public void SecondPanel() {
+		p2.setLayout(new GridLayout(3,2));
+		ImageIcon icon1=new ImageIcon("C:\\Git\\KIOSK\\src\\main\\java\\image.jpg");
+		ImageIcon icon2=new ImageIcon("C:\\Git\\KIOSK\\src\\main\\java\\image2.png");
+		p3=new JPanel() {
+			Image bg=icon1.getImage();
+			Image bg1=icon2.getImage();
+			public void paint(Graphics g) {
+				g.drawImage(bg,500,0,500,375,null);
+				g.drawImage(bg1,500,375,500,375,null);
+			}
+		};
+		p3.setLayout(null);
+		p2.setBounds(0, 0, 500, 750);
+		p3.setBounds(500, 0, 500, 750);
+		for(int i=0;i<6;i++) {
+			btn[i]=new Button(" ");
+			btn[i].setFont(new Font("맑은 고딕",Font.BOLD,70));
+			p2.add(btn[i]);
+		}
 	}
 	public void ExcelReader() {//엑셀 에서 수령과 
 		
@@ -181,7 +219,6 @@ public class Complete extends JFrame implements ActionListener{
 	public void Paycomplete() {
 		int n=table.getSelectedRow();
 		int row=Integer.parseInt((String)table.getValueAt(n, 0));
-		DefaultTableModel tm=(DefaultTableModel)table.getModel();
 		if(n>=0&&n<table.getRowCount()) {
 			table.setValueAt("true", n, 9);
 		}
@@ -190,11 +227,12 @@ public class Complete extends JFrame implements ActionListener{
 	public void Receivecomplete() {
 		int n=table.getSelectedRow();
 		int row=Integer.parseInt((String)table.getValueAt(n, 0));
-		DefaultTableModel tm=(DefaultTableModel)table.getModel();
+		String num=(String)table.getValueAt(n, 2);
 		if(n>=0&&n<table.getRowCount()) {
 			table.setValueAt("true", n, 10);
 		}
 		Update(row,10);
+		PrintNumber(num);
 	}
 	public void Update(int row,int column) {
 		FileOutputStream fos=null;
@@ -222,6 +260,12 @@ public class Complete extends JFrame implements ActionListener{
 		}
 		
 	}
+	
+	public void PrintNumber(String num) {
+		if(i==6) i%=6;
+		btn[i].setLabel(num);
+		i++;
+	}
 	public void event() {
 		
 		bt.addActionListener(this);
@@ -243,7 +287,5 @@ public class Complete extends JFrame implements ActionListener{
 			break;
 			
 		}
-	}
-	
-	
+	}	
 }

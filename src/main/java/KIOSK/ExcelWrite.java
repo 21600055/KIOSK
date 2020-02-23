@@ -189,7 +189,6 @@ public class ExcelWrite {
 	}
 	
 	public void Update() {
-		System.out.println("진입 완료");
 		 XSSFWorkbook workbook = new XSSFWorkbook();
 		 XSSFSheet sheet= workbook.createSheet();
 		 XSSFRow row=sheet.createRow(0);

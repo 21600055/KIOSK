@@ -3,14 +3,13 @@ package KIOSK;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class Order extends JFrame implements ActionListener{
-	
-	int i=1,j=1;
+	//주문창 클래스입니다.
+	int i=1,j=1;//i는 전체넘버,j는 주문넘버입니다.
 	JPanel p=new JPanel();
 	JPanel southp=new JPanel();
 	JButton bt1=new JButton("오코노미야끼S");
@@ -24,9 +23,8 @@ public class Order extends JFrame implements ActionListener{
 	DefaultTableModel dtm;
 	JTextField textfield=new JTextField(15);
 	Font font=new Font("맑은 고딕",Font.BOLD,15);
-	Excelmember excelmember;
 	
-	public Order() {	
+	public Order() {//컨스트럭터	
 		super("주문창");
 		Jpanel();
 		Jtable();
@@ -59,7 +57,7 @@ public class Order extends JFrame implements ActionListener{
 		p.add(bt5);
 		p.add(bt6);
 	}
-	public void Jtable() {
+	public void Jtable() {//테이블 만드는 메소드
 		Object[] columbName= {"주문 목록","단가","수량","가격"};
 		dtm= new DefaultTableModel(columbName,0);
 		table= new JTable(dtm);
@@ -67,14 +65,14 @@ public class Order extends JFrame implements ActionListener{
 		southp.add(scroll);
 		add("South",southp);
 	}
-	public void JText() {
+	public void JText() {// 총금액 텍스트 필드 만드는 메소드
 		JLabel cost =new JLabel("총금액");
 		cost.setFont(new Font("맑은 고딕",Font.BOLD,10));
 		southp.add(cost);
 		textfield.setText("0");
 		southp.add(textfield);
 	}
-	public void event() {
+	public void event() {//이벤트 처리 메소드 모아놓은것
 		bt1.addActionListener(this);
 		bt2.addActionListener(this);
 		bt3.addActionListener(this);
@@ -123,7 +121,6 @@ public class Order extends JFrame implements ActionListener{
 	public void addRow(String name,int unit,int count) {//테이블에 값이 없을 경우 테이블에 데이터를 추가하는 메소드입니다.
 		int price=unit*count;
 		int totalprice=Integer.parseInt(textfield.getText())+price;
-		//DefaultTableModel model=(DefaultTableModel)table.getModel();
 		dtm.addRow(new String[] {name,Integer.toString(unit),Integer.toString(count),Integer.toString(price)});
 		textfield.setText(Integer.toString(totalprice));
 	}
@@ -147,13 +144,11 @@ public class Order extends JFrame implements ActionListener{
 		textfield.setText(Integer.toString(totalprice));
 	}
 	public void Next() {//다음을 눌렀을때 작동하는 메소드
-		ArrayList<Excelmember> next= new ArrayList<Excelmember>();//엑셀에 작성할 어레이리스트 만들기
-		excelmember=new Excelmember(i,j,table,textfield);
-		next.add(excelmember);//i는 전체넘버,j는 주문넘버입니다.
-		i++;j++;
-		if(j>30) j/=30;
+		Excelmember row=new Excelmember(i,j,table,textfield);
+		i++;j++;//i는 전체넘버,j는 주문넘버입니다.
+		if(j>30) j/=30;//주문번호 로테이션하기 위해 /했습니다.
 		dtm.setRowCount(0);//다음 주문을 위한 테이블 초기와
 		textfield.setText("0");
-		new Payment(next);
+		new Payment(row);
 	}
 }

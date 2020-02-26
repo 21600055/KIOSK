@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.Box;
@@ -14,7 +13,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 public class Payment extends JFrame implements ActionListener{
-	
+	//지불창 클래스입니다
 	Box center=Box.createHorizontalBox();
 	JComboBox<String> p,p1,p2,p3;
 	JButton bt=new JButton("다음");
@@ -25,10 +24,10 @@ public class Payment extends JFrame implements ActionListener{
 	Font font=new Font("맑은 고딕",Font.BOLD,50);
 	Excelmember data=new Excelmember();
 	
-	public Payment(ArrayList<Excelmember> row) {
+	public Payment(Excelmember row) {//컨스트럭터, row는 Order에서 받아온 주문 목록
 		
 		super("결제정보창");
-		data=row.get(0);
+		data=row;
 		data.setPay(name[0]);
 		data.setGender(gender[0]);
 		data.setAge(age[0]);
@@ -41,7 +40,7 @@ public class Payment extends JFrame implements ActionListener{
 		setSize(1000,750);
 		setVisible(true);
 	}
-	public void paypanel() {
+	public void paypanel() {//결제 방식 정하는 콤보박스 초기화 메소드입니다.
 		Box pay=Box.createVerticalBox();
 		p=new JComboBox<String>(name);
 		p.setPreferredSize(new Dimension(250,100));
@@ -82,7 +81,7 @@ public class Payment extends JFrame implements ActionListener{
 		right.add(age);
 		center.add(right);
 	}
-	public void event() {
+	public void event() {//이벤트 처리 메소드
 		
 		p.addActionListener(this);
 		p1.addActionListener(this);
@@ -91,7 +90,7 @@ public class Payment extends JFrame implements ActionListener{
 		bt.addActionListener(this);
 	}
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) {//이벤트 처리 메소드
 		
 		if(e.getSource().equals(p)) {
 			JComboBox cb=(JComboBox)e.getSource();
@@ -113,11 +112,9 @@ public class Payment extends JFrame implements ActionListener{
 			Next();
 		}
 	}
-	public void Next() {
-		ArrayList<Excelmember> row=new ArrayList<Excelmember>();
-		row.add(data);
-		new Dialogue(this,row);
-		new ExcelWrite(row);
+	public void Next() {//다음을 눌렀을때 작동하는 메소드입니다
+		new Dialogue(this,data);//주문번호는 ~~번입니다 라고 뜨는 다이얼로그 메소드입니다.
+		new ExcelWrite(data);//엑셀 작성하는 메소드입니다
 	}
 	
 }

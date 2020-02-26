@@ -1,13 +1,11 @@
 package KIOSK;
 
 import java.awt.Button;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
@@ -19,7 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -35,7 +32,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
 public class Complete extends JFrame implements ActionListener{
-	
+	//완성 버튼 클래스입니다.
 	String today=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 	String way="C:\\Users\\user\\Desktop\\"+today+"HAC장사 장부.xlsx";
 	ArrayList<Excelmember> list=new ArrayList<Excelmember>();
@@ -47,9 +44,9 @@ public class Complete extends JFrame implements ActionListener{
 	JButton bt1=new JButton("수령 완료");
 	JButton bt2=new JButton("새로 고침");
 	Button btn[]=new Button[6];
-	int i=0;
+	int i=0;//손님용 화면에 출력하는 주문 번호 인덱스값입니다.
 	
-	public Complete() {
+	public Complete() {//컨스트럭터
 		
 		super("완성화면");
 		f.setTitle("손님용 출력화면");
@@ -57,6 +54,7 @@ public class Complete extends JFrame implements ActionListener{
 		Jtable();
 		Jbutton();
 		SecondPanel();
+		ExcelReader();
 		add("South",p);
 		add("Center",p1);
 		f.add(p2);
@@ -68,7 +66,7 @@ public class Complete extends JFrame implements ActionListener{
 		f.setVisible(true);
 	}
 	
-	public void Jtable() {
+	public void Jtable() {// 완성화면 테이블 만드는 메소드
 		Object[] columbName= {"No.","Timecode","주문번호","오코S","오코L","타코","매운맛","총가격","결제수단","결제완료","수령","성별","어른/학생","고객수"};
 		
 		JScrollPane scroll;
@@ -79,7 +77,7 @@ public class Complete extends JFrame implements ActionListener{
 		p.add(scroll);
 	}
 	
-	public void Jbutton() {
+	public void Jbutton() {//완성화면 버튼 만드는 메소드
 
 		Font font=new Font("맑은 고딕",Font.BOLD,15);
 		p1.setLayout(null);
@@ -95,7 +93,7 @@ public class Complete extends JFrame implements ActionListener{
 		p1.add(bt2);
 	}
 	
-	public void SecondPanel() {
+	public void SecondPanel() {//손님용 출력화면 만드는 메소드
 		p2.setLayout(new GridLayout(3,2));
 		ImageIcon icon1=new ImageIcon("C:\\Git\\KIOSK\\src\\main\\java\\image.jpg");
 		ImageIcon icon2=new ImageIcon("C:\\Git\\KIOSK\\src\\main\\java\\image2.png");
@@ -116,7 +114,7 @@ public class Complete extends JFrame implements ActionListener{
 			p2.add(btn[i]);
 		}
 	}
-	public void ExcelReader() {//엑셀 에서 수령과 
+	public void ExcelReader() {//엑셀에서 데이터를 읽어와서 arraylist에 추가하는 메소드
 		
 		FileInputStream fis=null;
 		XSSFWorkbook workbook=null;
@@ -185,11 +183,11 @@ public class Complete extends JFrame implements ActionListener{
 				e.printStackTrace();
 			}
 		}
-		dtm.setRowCount(0);
+		dtm.setRowCount(0);//테이블 새로고침을 위해서 row를 전부 지움
 		select();
 	}
 	
-	public void select() {
+	public void select() {//arraylist에서 결제완료 또는 수령완료가 false면 테이블에 추가함
 		
 		String t[]=new String[14];
 		
@@ -210,31 +208,32 @@ public class Complete extends JFrame implements ActionListener{
 			t[13]=temp.getCustomercount();
 			
 			if((temp.isRecive()==false)||(temp.isPaytrue()==false)) {
-				
 				dtm.addRow(t);
 			}
 		}
 	}
 	
-	public void Paycomplete() {
+	public void Paycomplete() {//완성화면에서 결제완료 버튼을 눌렀을때, 작동하는 메소드
 		int n=table.getSelectedRow();
 		int row=Integer.parseInt((String)table.getValueAt(n, 0));
-		if(n>=0&&n<table.getRowCount()) {
+		if(n>=0&&n<table.getRowCount()) {//선택한 행의 테이블값을 true로 바꿔줌.
 			table.setValueAt("true", n, 9);
 		}
 		Update(row,9);
+		ExcelReader();
 	}
-	public void Receivecomplete() {
+	public void Receivecomplete() {//완성화면에서 수령완료 버튼을 눌렀을때 작동하는 메소드
 		int n=table.getSelectedRow();
 		int row=Integer.parseInt((String)table.getValueAt(n, 0));
 		String num=(String)table.getValueAt(n, 2);
-		if(n>=0&&n<table.getRowCount()) {
+		if(n>=0&&n<table.getRowCount()) {//선택한 행의 테이블값을 true로 바꿔줌.
 			table.setValueAt("true", n, 10);
 		}
 		Update(row,10);
+		ExcelReader();
 		PrintNumber(num);
 	}
-	public void Update(int row,int column) {
+	public void Update(int row,int column) {//실제 엑셀 파일의 셀값에 접근해서 true로 바꿔줌
 		FileOutputStream fos=null;
 		InputStream fis=null;
 		
@@ -261,12 +260,12 @@ public class Complete extends JFrame implements ActionListener{
 		
 	}
 	
-	public void PrintNumber(String num) {
+	public void PrintNumber(String num) {//손님용 화면애 번호를 출력하는 메소드입니다.
 		if(i==6) i%=6;
 		btn[i].setLabel(num);
 		i++;
 	}
-	public void event() {
+	public void event() {//이벤트 처리 메소드
 		
 		bt.addActionListener(this);
 		bt1.addActionListener(this);
@@ -274,7 +273,7 @@ public class Complete extends JFrame implements ActionListener{
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) {//이벤트 처리 메소드
 		
 		String event=e.getActionCommand();
 		switch(event) {

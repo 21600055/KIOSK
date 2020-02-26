@@ -21,8 +21,8 @@ public class ExcelWrite {
 	String way="C:\\Users\\user\\Desktop\\"+today+"HAC장사 장부.xlsx";
 	ArrayList<Excelmember> list=new ArrayList<Excelmember>(); 
 	
-	public ExcelWrite(ArrayList<Excelmember> row) {
-		data=row.get(0);
+	public ExcelWrite(Excelmember row) {//엑셀 작성하는 메소드입니다. poi 외부라이브러리 썼습니다.
+		data=row;
 		File file=new File(way);
 		if(file.exists()) {
 			xlsxReader();
@@ -30,7 +30,7 @@ public class ExcelWrite {
 			xlsxWriter();
 		}
 	}
-	public void xlsxWriter() {
+	public void xlsxWriter() {//엑셀 파일 처음 작성할때 쓰는 메소드입니다.
 		 XSSFWorkbook workbook = new XSSFWorkbook();
 		 XSSFSheet sheet= workbook.createSheet();
 		 XSSFRow row=sheet.createRow(0);
@@ -115,7 +115,7 @@ public class ExcelWrite {
 		 }
 	}
 
-	public void xlsxReader() {
+	public void xlsxReader() {//파일이 있을시, 파일을 읽어와서 다시 Update 메소드로 보냅니다.
 		
 		FileInputStream fis=null;
 		XSSFWorkbook workbook=null;
@@ -188,7 +188,7 @@ public class ExcelWrite {
 		Update();
 	}
 	
-	public void Update() {
+	public void Update() {//업데이트 메소드
 		 XSSFWorkbook workbook = new XSSFWorkbook();
 		 XSSFSheet sheet= workbook.createSheet();
 		 XSSFRow row=sheet.createRow(0);
